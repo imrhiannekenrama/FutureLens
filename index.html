@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en"><head> 
+    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FutureLens — Fictional Future Readings</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Fraunces:opsz,wght@9..144,600;9..144,700&amp;display=swap" rel="stylesheet">
+  <style>
+    :root { --ink:#050614; --panel:rgba(15,18,45,.72); --line:rgba(198,204,255,.15); --lav:#a99cff; --cyan:#73e6ff; --gold:#ffd789; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; font-family:"DM Sans",sans-serif; color:#f8f8ff; background:#050614; overflow-x:hidden; }
+    .space-bg { position:fixed; inset:0; z-index:-3; background:radial-gradient(circle at 12% 8%,#23216f 0,transparent 28%),radial-gradient(circle at 87% 20%,#173c63 0,transparent 26%),radial-gradient(circle at 45% 85%,#341545 0,transparent 34%),#050614; }
+    .space-bg:after { content:""; position:absolute; inset:0; opacity:.45; background-image:radial-gradient(#fff 1px,transparent 1.5px),radial-gradient(#8ea5ff 1px,transparent 1.5px); background-size:73px 73px,119px 119px; background-position:0 0,35px 52px; animation:drift 18s linear infinite; }
+    @keyframes drift { from { transform:translateY(0) } to { transform:translateY(-73px) } }
+    .page-shell { width:100%; min-height:calc(100 * min(var(--vh, 1vh), 1vh)); }
+    .glass { background:linear-gradient(135deg,rgba(28,32,73,.74),rgba(11,13,35,.72)); border:1px solid var(--line); box-shadow:0 20px 70px rgba(0,0,0,.28); backdrop-filter:blur(18px); }
+    .glow { box-shadow:0 0 0 1px rgba(180,167,255,.2),0 14px 46px rgba(112,93,255,.25); }
+    .section { width:100%; max-width:1100px; margin:0 auto; padding:5rem 1.25rem; }
+    .eyebrow { color:#b8b1ff; letter-spacing:.16em; font-size:.72rem; font-weight:700; text-transform:uppercase; }
+    .display { font-family:"Fraunces",serif; letter-spacing:-.045em; }
+    .navlink { color:#c8c8dc; font-size:.9rem; transition:.2s; }
+    .navlink:hover { color:#fff; }
+    .primary { background:linear-gradient(100deg,#aa99ff,#77def9); color:#080918; font-weight:700; box-shadow:0 10px 32px rgba(130,120,255,.3); transition:transform .2s,box-shadow .2s; }
+    .primary:hover { transform:translateY(-2px); box-shadow:0 15px 42px rgba(130,120,255,.45); }
+    .secondary { border:1px solid rgba(210,210,255,.25); color:#f7f7ff; background:rgba(255,255,255,.05); transition:.2s; }
+    .secondary:hover { background:rgba(255,255,255,.11); }
+    .choice { border:1px solid var(--line); background:rgba(255,255,255,.035); transition:all .2s; }
+    .choice:hover,.choice.selected { border-color:#a99cff; background:rgba(169,156,255,.16); box-shadow:0 0 0 1px rgba(169,156,255,.3),0 10px 28px rgba(83,72,192,.18); }
+    .view { display:none; animation:enter .55s ease both; }
+    .view.active { display:block; }
+    @keyframes enter { from { opacity:0; transform:translateY(14px) } to { opacity:1; transform:translateY(0) } }
+    .step { display:none; } .step.active { display:block; animation:enter .4s ease both; }
+    .ad-slot { min-height:88px; border:1px dashed rgba(190,190,235,.25); background:rgba(255,255,255,.018); color:#8e8ea9; display:grid; place-items:center; font-size:.72rem; text-transform:uppercase; letter-spacing:.12em; }
+    .result-line { border-left:2px solid #8e82fa; padding-left:1rem; }
+    input[type=range] { accent-color:#a99cff; }
+    .reveal-orb { width:120px; height:120px; border-radius:50%; background:radial-gradient(circle at 35% 30%,#d8d3ff,#8375f3 35%,#191750 70%); box-shadow:0 0 80px #7060ff; animation:pulse 2.6s ease-in-out infinite; }
+    @keyframes pulse { 50% { transform:scale(1.07); box-shadow:0 0 110px #7060ff; } }
+    .tiny { font-size:.78rem; color:#b8b8c9; }
+    .footer-link { color:#b9b7d4; font-size:.82rem; } .footer-link:hover { color:#fff; }
+    @media (max-width:640px) { .section { padding:3.8rem 1rem; } }
+  </style>
+  
+ </head>
+ <body data-template-id="__page-root" style="background: rgb(5, 6, 20);">
+  <div class="space-bg"></div>
+  <div class="page-shell">
+   <header class="sticky top-0 z-40 border-b border-white/10 bg-[#050614]/75 backdrop-blur-xl">
+    <nav aria-label="Primary navigation" class="mx-auto flex max-w-[1100px] items-center justify-between px-4 py-4"><a href="#home" data-template-id="brand" class="canva-link display text-xl font-semibold text-white" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 16px;">FutureLens</a>
+     <div class="flex items-center gap-4 sm:gap-7"><a href="#how-it-works" data-template-id="nav-how" class="canva-link navlink" style="color: rgb(200, 200, 220); font-weight: 400; font-style: normal; font-size: 16px;">How It Works</a> <a href="#about" data-template-id="nav-about" class="canva-link navlink" style="color: rgb(200, 200, 220); font-weight: 400; font-style: normal; font-size: 16px;">About</a>
+     </div>
+    </nav>
+   </header>
+   <main>
+    <section id="home" class="section pt-16 sm:pt-24">
+     <div class="mx-auto max-w-3xl text-center">
+      <p data-template-id="hero-kicker" class="canva-text eyebrow" style="color: rgb(184, 177, 255); font-weight: 700; font-style: normal; font-size: 16px;">A fictional future-reading experience</p>
+      <h1 data-template-id="hero-title" class="canva-text display mt-4 text-5xl font-semibold leading-[.98] sm:text-7xl" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 32px;">Your future is closer than you think.</h1>
+      <p data-template-id="hero-subtitle" class="canva-text mx-auto mt-6 max-w-xl text-base leading-7 text-[#cbcada] sm:text-lg" style="color: rgb(203, 202, 218); font-weight: 400; font-style: normal; font-size: 18px;">Answer a few questions and discover the future story FutureLens creates for you.</p><button data-template-id="hero-cta" id="start-reading" type="button" class="canva-button primary mt-8 rounded-full px-7 py-4 text-base" style="background: linear-gradient(100deg, rgb(170, 153, 255), rgb(119, 222, 249)); color: rgb(8, 9, 24); font-weight: 700; font-style: normal; font-size: 16px;">Reveal My Future →</button>
+      <p data-template-id="hero-meta" class="canva-text mt-4 text-sm text-[#aaa9c4]" style="color: rgb(170, 169, 196); font-weight: 400; font-style: normal; font-size: 16px;">2 minutes • Free • For entertainment</p>
+     </div>
+     <div class="mx-auto mt-14 grid max-w-5xl grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5"><button data-template-id="curiosity-money" class="canva-card choice rounded-2xl px-4 py-5 text-left text-sm" style="background: rgba(255, 255, 255, 0.035); color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 16px;">💰 Your Future With Money</button> <button data-template-id="curiosity-love" class="canva-card choice rounded-2xl px-4 py-5 text-left text-sm" style="background: rgba(255, 255, 255, 0.035); color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 16px;">❤️ Your Future Love Story</button> <button data-template-id="curiosity-career" class="canva-card choice rounded-2xl px-4 py-5 text-left text-sm" style="background: rgba(255, 255, 255, 0.035); color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 16px;">🚀 Your Career Path</button> <button data-template-id="curiosity-place" class="canva-card choice rounded-2xl px-4 py-5 text-left text-sm" style="background: rgba(255, 255, 255, 0.035); color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 16px;">🌎 Where Life May Take You</button> <button data-template-id="curiosity-turn" class="canva-card choice rounded-2xl px-4 py-5 text-left text-sm" style="background: rgba(255, 255, 255, 0.035); color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 16px;">✨ Your Unexpected Turning Point</button>
+     </div>
+     <div data-template-id="home-ad-slot" class="canva-banner ad-slot mx-auto mt-12 max-w-3xl rounded-2xl" style="background: rgba(255, 255, 255, 0.02); color: rgb(142, 142, 169); font-weight: 400; font-style: normal; font-size: 16px;">Reserved placement</div>
+    </section>
+    <section id="tiktok" class="section">
+     <div data-template-id="tiktok-panel" class="canva-panel glass glow overflow-hidden rounded-[2rem] p-7 text-center sm:p-12" style="background: linear-gradient(135deg, rgba(28, 32, 73, 0.74), rgba(11, 13, 35, 0.72));">
+      <p data-template-id="tiktok-kicker" class="canva-text eyebrow" style="color: rgb(184, 177, 255); font-weight: 700; font-style: normal; font-size: 16px;">From your For You page</p>
+      <h2 data-template-id="tiktok-title" class="canva-text display mt-3 text-4xl font-semibold sm:text-5xl" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 24px;">Did TikTok send you here?</h2>
+      <p data-template-id="tiktok-subtitle" class="canva-text mx-auto mt-4 max-w-lg text-[#cfcede]" style="color: rgb(207, 206, 222); font-weight: 400; font-style: normal; font-size: 16px;">Don’t watch someone else’s future. Find out what yours says.</p><button data-template-id="tiktok-cta" id="start-reading-tiktok" type="button" class="canva-button primary mt-7 rounded-full px-7 py-4" style="background: linear-gradient(100deg, rgb(170, 153, 255), rgb(119, 222, 249)); color: rgb(8, 9, 24); font-weight: 700; font-style: normal; font-size: 16px;">Reveal Mine →</button>
+     </div>
+    </section>
+    <section id="reading" class="section">
+     <div id="reading-view" class="view">
+      <div class="mx-auto max-w-2xl">
+       <p data-template-id="reading-label" class="canva-text eyebrow text-center" style="color: rgb(184, 177, 255); font-weight: 700; font-style: normal; font-size: 16px;">FutureLens reading</p>
+       <div class="mt-4 h-1.5 overflow-hidden rounded-full bg-white/10">
+        <div id="progress-bar" class="h-full rounded-full bg-gradient-to-r from-[#aa99ff] to-[#76e5ff] transition-all duration-500" style="width:16.66%"></div>
+       </div>
+       <p id="progress-text" class="mt-3 text-center text-sm text-[#b7b5d2]" aria-live="polite">Reading your future... 1/6</p>
+       <div class="glass mt-7 rounded-[2rem] p-6 sm:p-10">
+        <div class="step active" data-step="1">
+         <p data-template-id="step1-kicker" class="canva-text eyebrow" style="color: rgb(184, 177, 255); font-weight: 700; font-style: normal; font-size: 16px;">First signal</p>
+         <h2 data-template-id="step1-title" class="canva-text display mt-3 text-3xl font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 24px;">What should we call you?</h2><label data-template-id="name-label" for="name-input" class="canva-text mt-7 block text-sm text-[#cbcadd]" style="color: rgb(203, 202, 221); font-weight: 400; font-style: normal; font-size: 16px;">First name or nickname</label> <input id="name-input" class="mt-2 w-full rounded-xl border border-white/15 bg-white/5 px-4 py-4 text-white outline-none focus:border-[#a99cff]" type="text" maxlength="28"> <button data-template-id="step-next-1" class="canva-button primary mt-7 w-full rounded-xl px-5 py-4" type="button" data-next="" style="background: linear-gradient(100deg, rgb(170, 153, 255), rgb(119, 222, 249)); color: rgb(8, 9, 24); font-weight: 700; font-style: normal; font-size: 16px;">Continue →</button>
+        </div>
+        <div class="step" data-step="2">
+         <p data-template-id="step2-kicker" class="canva-text eyebrow" style="color: rgb(184, 177, 255); font-weight: 700; font-style: normal; font-size: 16px;">A point in time</p>
+         <h2 data-template-id="step2-title" class="canva-text display mt-3 text-3xl font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 24px;">When were you born?</h2><label data-template-id="birth-label" for="birth-input" class="canva-text mt-7 block text-sm text-[#cbcadd]" style="color: rgb(203, 202, 221); font-weight: 400; font-style: normal; font-size: 16px;">Date of birth</label> <input id="birth-input" class="mt-2 w-full rounded-xl border border-white/15 bg-white/5 px-4 py-4 text-white outline-none focus:border-[#a99cff]" type="date"> <button data-template-id="step-next-2" class="canva-button primary mt-7 w-full rounded-xl px-5 py-4" type="button" data-next="" style="background: linear-gradient(100deg, rgb(170, 153, 255), rgb(119, 222, 249)); color: rgb(8, 9, 24); font-weight: 700; font-style: normal; font-size: 16px;">Continue →</button>
+        </div>
+        <div class="step" data-step="3">
+         <p data-template-id="step3-kicker" class="canva-text eyebrow" style="color: rgb(184, 177, 255); font-weight: 700; font-style: normal; font-size: 16px;">Your present orbit</p>
+         <h2 data-template-id="step3-title" class="canva-text display mt-3 text-3xl font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 24px;">What’s your current situation?</h2>
+         <div class="mt-7 grid grid-cols-1 gap-3 sm:grid-cols-2" data-group="situation"><button data-template-id="situation-student" class="canva-button choice rounded-xl px-4 py-4 text-left" type="button" data-value="Student" style="color: rgb(255, 255, 255); font-weight: 400; font-style: normal; font-size: 16px;">Student</button> <button data-template-id="situation-working" class="canva-button choice rounded-xl px-4 py-4 text-left" type="button" data-value="Working" style="color: rgb(255, 255, 255); font-weight: 400; font-style: normal; font-size: 16px;">Working</button> <button data-template-id="situation-business" class="canva-button choice rounded-xl px-4 py-4 text-left" type="button" data-value="Building a business" style="color: rgb(255, 255, 255); font-weight: 400; font-style: normal; font-size: 16px;">Building a business</button> <button data-template-id="situation-direction" class="canva-button choice rounded-xl px-4 py-4 text-left" type="button" data-value="Looking for direction" style="color: rgb(255, 255, 255); font-weight: 400; font-style: normal; font-size: 16px;">Looking for direction</button> <button data-template-id="situation-exploring" class="canva-button choice rounded-xl px-4 py-4 text-left sm:col-span-2" type="button" data-value="Just exploring" style="color: rgb(255, 255, 255); font-weight: 400; font-style: normal; font-size: 16px;">Just exploring</button>
+         </div><button data-template-id="step-next-3" class="canva-button primary mt-7 w-full rounded-xl px-5 py-4" type="button" data-next="" style="background: linear-gradient(100deg, rgb(170, 153, 255), rgb(119, 222, 249)); color: rgb(8, 9, 24); font-weight: 700; font-style: normal; font-size: 16px;">Continue →</button>
+        </div>
+        <div class="step" data-step="4">
+         <p data-template-id="step4-kicker" class="canva-text eyebrow" style="color: rgb(184, 177, 255); font-weight: 700; font-style: normal; font-size: 16px;">Your north star</p>
+         <h2 data-template-id="step4-title" class="canva-text display mt-3 text-3xl font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 24px;">What matters most to you right now?</h2>
+         <div class="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-3" data-group="value"><button data-template-id="value-money" class="canva-button choice rounded-xl px-4 py-4" type="button" data-value="Money" style="color: rgb(255, 255, 255); font-weight: 400; font-style: normal; font-size: 16px;">Money</button> <button data-template-id="value-love" class="canva-button choice rounded-xl px-4 py-4" type="button" data-value="Love" style="color: rgb(255, 255, 255); font-weight: 400; font-style: normal; font-size: 16px;">Love</button> <button data-template-id="value-career" class="canva-button choice rounded-xl px-4 py-4" type="button" data-value="Career" style="color: rgb(255, 255, 255); font-weight: 400; font-style: normal; font-size: 16px;">Career</button> <button data-template-id="value-family" class="canva-button choice rounded-xl px-4 py-4" type="button" data-value="Family" style="color: rgb(255, 255, 255); font-weight: 400; font-style: normal; font-size: 16px;">Family</button> <button data-template-id="value-freedom" class="canva-button choice rounded-xl px-4 py-4" type="button" data-value="Freedom" style="color: rgb(255, 255, 255); font-weight: 400; font-style: normal; font-size: 16px;">Freedom</button> <button data-template-id="value-adventure" class="canva-button choice rounded-xl px-4 py-4" type="button" data-value="Adventure" style="color: rgb(255, 255, 255); font-weight: 400; font-style: normal; font-size: 16px;">Adventure</button>
+         </div><button data-template-id="step-next-4" class="canva-button primary mt-7 w-full rounded-xl px-5 py-4" type="button" data-next="" style="background: linear-gradient(100deg, rgb(170, 153, 255), rgb(119, 222, 249)); color: rgb(8, 9, 24); font-weight: 700; font-style: normal; font-size: 16px;">Continue →</button>
+        </div>
+        <div class="step" data-step="5">
+         <p data-template-id="step5-kicker" class="canva-text eyebrow" style="color: rgb(184, 177, 255); font-weight: 700; font-style: normal; font-size: 16px;">A quiet sign</p>
+         <h2 data-template-id="step5-title" class="canva-text display mt-3 text-3xl font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 24px;">Choose one.</h2>
+         <div class="mt-7 grid grid-cols-3 gap-3" data-group="symbol"><button data-template-id="symbol-moon" class="canva-button choice rounded-2xl py-6 text-3xl" type="button" data-value="🌙" style="color: rgb(255, 255, 255); font-weight: 400; font-style: normal; font-size: 16px;">🌙</button> <button data-template-id="symbol-fire" class="canva-button choice rounded-2xl py-6 text-3xl" type="button" data-value="🔥" style="color: rgb(255, 255, 255); font-weight: 400; font-style: normal; font-size: 16px;">🔥</button> <button data-template-id="symbol-water" class="canva-button choice rounded-2xl py-6 text-3xl" type="button" data-value="🌊" style="color: rgb(255, 255, 255); font-weight: 400; font-style: normal; font-size: 16px;">🌊</button> <button data-template-id="symbol-star" class="canva-button choice rounded-2xl py-6 text-3xl" type="button" data-value="⭐" style="color: rgb(255, 255, 255); font-weight: 400; font-style: normal; font-size: 16px;">⭐</button> <button data-template-id="symbol-planet" class="canva-button choice rounded-2xl py-6 text-3xl" type="button" data-value="🪐" style="color: rgb(255, 255, 255); font-weight: 400; font-style: normal; font-size: 16px;">🪐</button> <button data-template-id="symbol-rose" class="canva-button choice rounded-2xl py-6 text-3xl" type="button" data-value="🌹" style="color: rgb(255, 255, 255); font-weight: 400; font-style: normal; font-size: 16px;">🌹</button>
+         </div><button data-template-id="step-next-5" class="canva-button primary mt-7 w-full rounded-xl px-5 py-4" type="button" data-next="" style="background: linear-gradient(100deg, rgb(170, 153, 255), rgb(119, 222, 249)); color: rgb(8, 9, 24); font-weight: 700; font-style: normal; font-size: 16px;">Continue →</button>
+        </div>
+        <div class="step" data-step="6">
+         <p data-template-id="step6-kicker" class="canva-text eyebrow" style="color: rgb(184, 177, 255); font-weight: 700; font-style: normal; font-size: 16px;">The edge of possibility</p>
+         <h2 data-template-id="step6-title" class="canva-text display mt-3 text-3xl font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 24px;">How adventurous are you?</h2>
+         <div class="mt-10 rounded-2xl border border-white/10 bg-white/[.03] p-5"><input id="adventure-input" class="w-full" type="range" min="1" max="10" value="5" aria-label="Adventure level">
+          <div class="mt-3 flex justify-between text-xs text-[#bdbbd5]">
+           <span data-template-id="safe-label" class="canva-text" style="color: rgb(189, 187, 213); font-weight: 400; font-style: normal; font-size: 16px;">Safe</span><span data-template-id="adventure-label" class="canva-text" style="color: rgb(189, 187, 213); font-weight: 400; font-style: normal; font-size: 16px;">Extremely adventurous</span>
+          </div>
+         </div><button data-template-id="step-next-6" class="canva-button primary mt-7 w-full rounded-xl px-5 py-4" type="button" data-next="" style="background: linear-gradient(100deg, rgb(170, 153, 255), rgb(119, 222, 249)); color: rgb(8, 9, 24); font-weight: 700; font-style: normal; font-size: 16px;">See what appears →</button>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div id="reveal-view" class="view">
+      <div class="glass glow mx-auto max-w-xl rounded-[2rem] p-8 text-center sm:p-12">
+       <div class="reveal-orb mx-auto"></div>
+       <p data-template-id="reveal-kicker" class="canva-text eyebrow mt-9" style="color: rgb(184, 177, 255); font-weight: 700; font-style: normal; font-size: 16px;">The lens is focusing</p>
+       <h2 id="reveal-stage" class="display mt-3 text-3xl font-semibold" aria-live="polite">Analyzing your choices...</h2><button data-template-id="reveal-button" id="reveal-button" class="canva-button primary mt-9 hidden rounded-full px-8 py-4 text-lg" type="button" style="background: linear-gradient(100deg, rgb(170, 153, 255), rgb(119, 222, 249)); color: rgb(8, 9, 24); font-weight: 700; font-style: normal; font-size: 16px;">REVEAL IT</button>
+      </div>
+     </div>
+     <div id="result-view" class="view">
+      <div class="mx-auto max-w-3xl">
+       <div id="share-card" class="glass glow overflow-hidden rounded-[2rem] p-7 sm:p-11">
+        <p data-template-id="result-brand" class="canva-text display text-xl font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 16px;">FutureLens</p>
+        <p id="result-name" class="mt-8 text-sm uppercase tracking-[.2em] text-[#aaa7d6]"></p>
+        <h2 data-template-id="result-archetype-label" class="canva-text mt-2 text-sm uppercase tracking-[.15em] text-[#c5bfff]" style="color: rgb(197, 191, 255); font-weight: 700; font-style: normal; font-size: 24px;">Future Archetype</h2>
+        <h3 id="result-archetype" class="display mt-2 text-5xl font-semibold"></h3>
+        <p id="result-prediction" class="mt-6 max-w-xl text-lg leading-8 text-[#deddf0]"></p>
+        <p id="result-lucky-symbol" class="mt-8 text-4xl"></p>
+        <p data-template-id="result-discover" class="canva-text mt-8 text-sm text-[#bbb9cf]" style="color: rgb(187, 185, 207); font-weight: 400; font-style: normal; font-size: 16px;">Discover yours at FutureLens</p>
+       </div>
+       <div class="mt-5 grid gap-3 sm:grid-cols-2"><button data-template-id="share-result" id="share-result" class="canva-button primary rounded-xl px-5 py-4" type="button" style="background: linear-gradient(100deg, rgb(170, 153, 255), rgb(119, 222, 249)); color: rgb(8, 9, 24); font-weight: 700; font-style: normal; font-size: 16px;">✨ Share My Future</button> <button data-template-id="copy-result" id="copy-result" class="canva-button secondary rounded-xl px-5 py-4" type="button" style="background: rgba(255, 255, 255, 0.05); color: rgb(247, 247, 255); font-weight: 600; font-style: normal; font-size: 16px;">Copy Result</button>
+       </div>
+       <p id="copy-status" class="mt-3 text-center text-sm text-[#bfbddd]" aria-live="polite"></p>
+       <div class="mt-12 space-y-7">
+        <article class="result-line">
+         <h2 data-template-id="chapter-heading" class="canva-text display text-2xl font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 24px;">YOUR NEXT CHAPTER</h2>
+         <p id="chapter-text" class="mt-3 leading-7 text-[#d0cfe0]"></p>
+        </article>
+        <article class="result-line">
+         <h2 data-template-id="money-heading" class="canva-text display text-2xl font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 24px;">MONEY</h2>
+         <h3 id="money-title" class="mt-3 font-semibold text-[#f2d698]"></h3>
+         <p id="money-text" class="mt-2 leading-7 text-[#d0cfe0]"></p>
+        </article>
+        <article class="result-line">
+         <h2 data-template-id="love-heading" class="canva-text display text-2xl font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 24px;">LOVE</h2>
+         <h3 id="love-title" class="mt-3 font-semibold text-[#faabc5]"></h3>
+         <p id="love-text" class="mt-2 leading-7 text-[#d0cfe0]"></p>
+        </article>
+        <article class="result-line">
+         <h2 data-template-id="career-heading" class="canva-text display text-2xl font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 24px;">CAREER</h2>
+         <h3 id="career-title" class="mt-3 font-semibold text-[#88e8ff]"></h3>
+         <p id="career-text" class="mt-2 leading-7 text-[#d0cfe0]"></p>
+        </article>
+        <article class="result-line">
+         <h2 data-template-id="turning-heading" class="canva-text display text-2xl font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 24px;">YOUR TURNING POINT</h2>
+         <p id="turning-text" class="mt-3 leading-7 text-[#d0cfe0]"></p>
+        </article>
+        <article class="result-line">
+         <h2 data-template-id="signal-heading" class="canva-text display text-2xl font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 24px;">YOUR LUCKY SIGNAL</h2>
+         <p id="signal-text" class="mt-3 leading-7 text-[#d0cfe0]"></p>
+        </article>
+        <article class="result-line">
+         <h2 data-template-id="message-heading" class="canva-text display text-2xl font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 24px;">THE MESSAGE</h2>
+         <p data-template-id="message-line1" class="canva-text mt-3 text-lg text-white" style="color: rgb(255, 255, 255); font-weight: 400; font-style: normal; font-size: 16px;">Your future isn’t written yet.</p>
+         <p data-template-id="message-line2" class="canva-text mt-1 text-[#d0cfe0]" style="color: rgb(208, 207, 224); font-weight: 400; font-style: normal; font-size: 16px;">The choices you make next are still yours.</p>
+        </article>
+       </div>
+       <div data-template-id="result-ad-slot" class="canva-banner ad-slot mt-12 rounded-2xl" style="background: rgba(255, 255, 255, 0.02); color: rgb(142, 142, 169); font-weight: 400; font-style: normal; font-size: 16px;">Reserved placement</div>
+      </div>
+     </div>
+    </section>
+    <section id="friend" class="section">
+     <div class="grid gap-7 lg:grid-cols-2 lg:items-center">
+      <div>
+       <p data-template-id="friend-kicker" class="canva-text eyebrow" style="color: rgb(184, 177, 255); font-weight: 700; font-style: normal; font-size: 16px;">Pass the lens</p>
+       <h2 data-template-id="friend-title" class="canva-text display mt-3 text-4xl font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 24px;">Think you know your friend’s future?</h2>
+       <p data-template-id="friend-copy" class="canva-text mt-4 leading-7 text-[#ceccde]" style="background: rgba(255, 255, 255, 0.05); color: rgb(247, 247, 255); font-weight: 600; font-style: normal; font-size: 16px;">Copy</p>
+      </div>
+      <div class="glass rounded-[2rem] p-6"><button data-template-id="friend-start" id="friend-start" class="canva-button primary w-full rounded-xl px-5 py-4" type="button" style="background: linear-gradient(100deg, rgb(170, 153, 255), rgb(119, 222, 249)); color: rgb(8, 9, 24); font-weight: 700; font-style: normal; font-size: 16px;">Predict Their Future →</button>
+       <form id="friend-form" class="mt-5 hidden"><label data-template-id="friend-name-label" for="friend-name" class="canva-text block text-sm" style="color: rgb(255, 255, 255); font-weight: 400; font-style: normal; font-size: 16px;">Friend’s name</label> <input id="friend-name" class="mt-2 w-full rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-white outline-none" maxlength="28" type="text"> <label data-template-id="friend-vibe-label" for="friend-vibe" class="canva-text mt-4 block text-sm" style="color: rgb(255, 255, 255); font-weight: 400; font-style: normal; font-size: 16px;">Choose their vibe</label> <select id="friend-vibe" class="mt-2 w-full rounded-xl border border-white/15 bg-[#10122b] px-4 py-3 text-white"><option>Curious</option><option>Bold</option><option>Creative</option><option>Calm</option></select> <button data-template-id="friend-generate" class="canva-button primary mt-5 w-full rounded-xl px-5 py-4" type="submit" style="background: linear-gradient(100deg, rgb(170, 153, 255), rgb(119, 222, 249)); color: rgb(8, 9, 24); font-weight: 700; font-style: normal; font-size: 16px;">Create Their Reading</button>
+       </form>
+       <div id="friend-result" class="mt-5 hidden rounded-2xl border border-white/10 bg-white/[.035] p-5">
+        <p id="friend-output" class="leading-7 text-[#d9d8e8]"></p>
+        <div class="mt-4 grid grid-cols-2 gap-3">
+         <button data-template-id="friend-share" id="friend-share" class="canva-button primary rounded-xl px-3 py-3 text-sm" type="button" style="background: linear-gradient(100deg, rgb(170, 153, 255), rgb(119, 222, 249)); color: rgb(8, 9, 24); font-weight: 700; font-style: normal; font-size: 16px;">Share</button><button data-template-id="friend-copy" id="friend-copy" class="canva-button secondary rounded-xl px-3 py-3 text-sm" type="button" style="background: rgba(255, 255, 255, 0.05); color: rgb(247, 247, 255); font-weight: 600; font-style: normal; font-size: 16px;">Copy</button>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section>
+    <section id="daily" class="section">
+     <div data-template-id="daily-panel" class="canva-panel glass rounded-[2rem] p-7 sm:p-10" style="background: linear-gradient(135deg, rgba(28, 32, 73, 0.74), rgba(11, 13, 35, 0.72));">
+      <p data-template-id="daily-kicker" class="canva-text eyebrow" style="color: rgb(184, 177, 255); font-weight: 700; font-style: normal; font-size: 16px;">Entertainment &amp; inspiration</p>
+      <h2 data-template-id="daily-title" class="canva-text display mt-3 text-4xl font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 24px;">Today’s Future Message</h2>
+      <p id="daily-message" class="mt-5 max-w-2xl text-lg leading-8 text-[#d8d7e8]"></p>
+      <p data-template-id="daily-note" class="canva-text mt-5 tiny" style="color: rgb(184, 184, 201); font-weight: 400; font-style: normal; font-size: 16px;">A fictional daily signal, refreshed by the calendar.</p>
+     </div>
+    </section>
+    <section id="archetypes" class="section">
+     <p data-template-id="archetype-kicker" class="canva-text eyebrow" style="color: rgb(184, 177, 255); font-weight: 700; font-style: normal; font-size: 16px;">Eight ways forward</p>
+     <h2 data-template-id="archetype-title" class="canva-text display mt-3 text-4xl font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 24px;">Future Archetypes</h2>
+     <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <article data-template-id="arch-builder" class="canva-card glass rounded-2xl p-5" style="background: linear-gradient(135deg, rgba(28, 32, 73, 0.74), rgba(11, 13, 35, 0.72));">
+       <h3 data-template-id="arch-builder-title" class="canva-text font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 19px;">The Builder</h3>
+       <p data-template-id="arch-builder-copy" class="canva-text mt-2 tiny" style="color: rgb(184, 184, 201); font-weight: 400; font-style: normal; font-size: 16px;">Turns small rituals into lasting momentum.</p>
+      </article>
+      <article data-template-id="arch-explorer" class="canva-card glass rounded-2xl p-5" style="background: linear-gradient(135deg, rgba(28, 32, 73, 0.74), rgba(11, 13, 35, 0.72));">
+       <h3 data-template-id="arch-explorer-title" class="canva-text font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 19px;">The Explorer</h3>
+       <p data-template-id="arch-explorer-copy" class="canva-text mt-2 tiny" style="color: rgb(184, 184, 201); font-weight: 400; font-style: normal; font-size: 16px;">Finds clarity through new terrain and questions.</p>
+      </article>
+      <article data-template-id="arch-creator" class="canva-card glass rounded-2xl p-5" style="background: linear-gradient(135deg, rgba(28, 32, 73, 0.74), rgba(11, 13, 35, 0.72));">
+       <h3 data-template-id="arch-creator-title" class="canva-text font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 19px;">The Creator</h3>
+       <p data-template-id="arch-creator-copy" class="canva-text mt-2 tiny" style="color: rgb(184, 184, 201); font-weight: 400; font-style: normal; font-size: 16px;">Sees fresh connections before others do.</p>
+      </article>
+      <article data-template-id="arch-leader" class="canva-card glass rounded-2xl p-5" style="background: linear-gradient(135deg, rgba(28, 32, 73, 0.74), rgba(11, 13, 35, 0.72));">
+       <h3 data-template-id="arch-leader-title" class="canva-text font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 19px;">The Leader</h3>
+       <p data-template-id="arch-leader-copy" class="canva-text mt-2 tiny" style="color: rgb(184, 184, 201); font-weight: 400; font-style: normal; font-size: 16px;">Gives movement a direction people trust.</p>
+      </article>
+      <article data-template-id="arch-dreamer" class="canva-card glass rounded-2xl p-5" style="background: linear-gradient(135deg, rgba(28, 32, 73, 0.74), rgba(11, 13, 35, 0.72));">
+       <h3 data-template-id="arch-dreamer-title" class="canva-text font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 19px;">The Dreamer</h3>
+       <p data-template-id="arch-dreamer-copy" class="canva-text mt-2 tiny" style="color: rgb(184, 184, 201); font-weight: 400; font-style: normal; font-size: 16px;">Protects a vivid idea until it can take shape.</p>
+      </article>
+      <article data-template-id="arch-strategist" class="canva-card glass rounded-2xl p-5" style="background: linear-gradient(135deg, rgba(28, 32, 73, 0.74), rgba(11, 13, 35, 0.72));">
+       <h3 data-template-id="arch-strategist-title" class="canva-text font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 19px;">The Strategist</h3>
+       <p data-template-id="arch-strategist-copy" class="canva-text mt-2 tiny" style="color: rgb(184, 184, 201); font-weight: 400; font-style: normal; font-size: 16px;">Notices patterns and chooses a clean next move.</p>
+      </article>
+      <article data-template-id="arch-adventurer" class="canva-card glass rounded-2xl p-5" style="background: linear-gradient(135deg, rgba(28, 32, 73, 0.74), rgba(11, 13, 35, 0.72));">
+       <h3 data-template-id="arch-adventurer-title" class="canva-text font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 19px;">The Adventurer</h3>
+       <p data-template-id="arch-adventurer-copy" class="canva-text mt-2 tiny" style="color: rgb(184, 184, 201); font-weight: 400; font-style: normal; font-size: 16px;">Lets curiosity open unexpected doors.</p>
+      </article>
+      <article data-template-id="arch-independent" class="canva-card glass rounded-2xl p-5" style="background: linear-gradient(135deg, rgba(28, 32, 73, 0.74), rgba(11, 13, 35, 0.72));">
+       <h3 data-template-id="arch-independent-title" class="canva-text font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 19px;">The Independent</h3>
+       <p data-template-id="arch-independent-copy" class="canva-text mt-2 tiny" style="color: rgb(184, 184, 201); font-weight: 400; font-style: normal; font-size: 16px;">Builds a path that feels unmistakably their own.</p>
+      </article>
+     </div><button data-template-id="find-archetype" id="find-archetype" class="canva-button primary mt-8 rounded-full px-7 py-4" type="button" style="background: linear-gradient(100deg, rgb(170, 153, 255), rgb(119, 222, 249)); color: rgb(8, 9, 24); font-weight: 700; font-style: normal; font-size: 16px;">Find your archetype</button>
+    </section>
+    <section id="how-it-works" class="section">
+     <p data-template-id="how-kicker" class="canva-text eyebrow" style="color: rgb(184, 177, 255); font-weight: 700; font-style: normal; font-size: 16px;">The experience</p>
+     <h2 data-template-id="how-title" class="canva-text display mt-3 text-4xl font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 24px;">Curiosity, through a fictional lens.</h2>
+     <div class="mt-7 grid gap-4 md:grid-cols-3">
+      <article class="glass rounded-2xl p-6">
+       <p data-template-id="how-one-number" class="canva-text text-[#a99cff]" style="color: rgb(169, 156, 255); font-weight: 700; font-style: normal; font-size: 16px;">01</p>
+       <h3 data-template-id="how-one-title" class="canva-text mt-3 font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 19px;">Choose your signals</h3>
+       <p data-template-id="how-one-copy" class="canva-text mt-2 tiny" style="color: rgb(184, 184, 201); font-weight: 400; font-style: normal; font-size: 16px;">Six quick choices create the shape of your story.</p>
+      </article>
+      <article class="glass rounded-2xl p-6">
+       <p data-template-id="how-two-number" class="canva-text text-[#a99cff]" style="color: rgb(169, 156, 255); font-weight: 700; font-style: normal; font-size: 16px;">02</p>
+       <h3 data-template-id="how-two-title" class="canva-text mt-3 font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 19px;">Watch the reveal</h3>
+       <p data-template-id="how-two-copy" class="canva-text mt-2 tiny" style="color: rgb(184, 184, 201); font-weight: 400; font-style: normal; font-size: 16px;">A deterministic creative reading is assembled from your answers.</p>
+      </article>
+      <article class="glass rounded-2xl p-6">
+       <p data-template-id="how-three-number" class="canva-text text-[#a99cff]" style="color: rgb(169, 156, 255); font-weight: 700; font-style: normal; font-size: 16px;">03</p>
+       <h3 data-template-id="how-three-title" class="canva-text mt-3 font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 19px;">Keep what inspires you</h3>
+       <p data-template-id="how-three-copy" class="canva-text mt-2 tiny" style="color: rgb(184, 184, 201); font-weight: 400; font-style: normal; font-size: 16px;">Screenshot or share the story—your next choices remain your own.</p>
+      </article>
+     </div>
+    </section>
+    <section id="info" class="section">
+     <h2 data-template-id="info-title" class="canva-text display text-4xl font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 24px;">Explore the FutureLens library</h2>
+     <div class="mt-7 grid gap-4 md:grid-cols-2">
+      <article class="glass rounded-2xl p-6">
+       <h3 data-template-id="info-prediction-title" class="canva-text font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 19px;">Future Prediction</h3>
+       <p data-template-id="info-prediction-copy" class="canva-text mt-2 tiny" style="color: rgb(184, 184, 201); font-weight: 400; font-style: normal; font-size: 16px;">FutureLens uses creative prompts and deterministic storytelling, not supernatural claims or factual prediction.</p>
+      </article>
+      <article class="glass rounded-2xl p-6">
+       <h3 data-template-id="info-love-title" class="canva-text font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 19px;">Love Future Reading</h3>
+       <p data-template-id="info-love-copy" class="canva-text mt-2 tiny" style="color: rgb(184, 184, 201); font-weight: 400; font-style: normal; font-size: 16px;">Explore fictional relationship themes like patience, openness, and unexpected connection—never promises about real people.</p>
+      </article>
+      <article class="glass rounded-2xl p-6">
+       <h3 data-template-id="info-career-title" class="canva-text font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 19px;">Career Future Reading</h3>
+       <p data-template-id="info-career-copy" class="canva-text mt-2 tiny" style="color: rgb(184, 184, 201); font-weight: 400; font-style: normal; font-size: 16px;">A creative career lens for reflecting on momentum, skills, and the directions that feel most alive to you.</p>
+      </article>
+      <article class="glass rounded-2xl p-6">
+       <h3 data-template-id="info-money-title" class="canva-text font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 19px;">Money Future Reading</h3>
+       <p data-template-id="info-money-copy" class="canva-text mt-2 tiny" style="color: rgb(184, 184, 201); font-weight: 400; font-style: normal; font-size: 16px;">Fictional money archetypes are prompts for reflection, never financial advice or a promise of financial outcomes.</p>
+      </article>
+      <article class="glass rounded-2xl p-6">
+       <h3 data-template-id="info-personality-title" class="canva-text font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 19px;">Future Personality</h3>
+       <p data-template-id="info-personality-copy" class="canva-text mt-2 tiny" style="color: rgb(184, 184, 201); font-weight: 400; font-style: normal; font-size: 16px;">Discover a playful narrative perspective based on the answers and symbols you choose today.</p>
+      </article>
+      <article class="glass rounded-2xl p-6">
+       <h3 data-template-id="info-archetype-title" class="canva-text font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 19px;">Future Archetype</h3>
+       <p data-template-id="info-archetype-copy" class="canva-text mt-2 tiny" style="color: rgb(184, 184, 201); font-weight: 400; font-style: normal; font-size: 16px;">Archetypes are imaginative story roles that can help spark a useful question about your next chapter.</p>
+      </article>
+      <article class="glass rounded-2xl p-6 md:col-span-2">
+       <h3 data-template-id="info-daily-title" class="canva-text font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 19px;">Daily Future Reading</h3>
+       <p data-template-id="info-daily-copy" class="canva-text mt-2 tiny" style="color: rgb(184, 184, 201); font-weight: 400; font-style: normal; font-size: 16px;">Each day offers a different fictional inspirational message based on the date—a gentle moment of curiosity, not a forecast.</p>
+      </article>
+     </div>
+    </section>
+    <section id="about" class="section">
+     <div class="glass rounded-[2rem] p-7 sm:p-10">
+      <p data-template-id="about-kicker" class="canva-text eyebrow" style="color: rgb(184, 177, 255); font-weight: 700; font-style: normal; font-size: 16px;">About FutureLens</p>
+      <h2 data-template-id="about-title" class="canva-text display mt-3 text-4xl font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 24px;">Stories for the space between now and next.</h2>
+      <p data-template-id="about-copy" class="canva-text mt-5 max-w-3xl leading-8 text-[#d4d3e3]" style="color: rgb(212, 211, 227); font-weight: 400; font-style: normal; font-size: 16px;">FutureLens is an entertainment experience that creates personalized fictional future readings based on your answers.</p>
+      <p data-template-id="about-trust" class="canva-text mt-4 max-w-3xl leading-7 text-[#bdbbce]" style="color: rgb(189, 187, 206); font-weight: 400; font-style: normal; font-size: 16px;">We are clear about the line: FutureLens does not have supernatural powers, cannot predict real events, and does not need sensitive personal information to create a reading.</p>
+     </div>
+    </section>
+    <section id="privacy" class="section py-8">
+     <h2 data-template-id="privacy-title" class="canva-text display text-3xl font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 24px;">Privacy Policy</h2>
+     <p data-template-id="privacy-copy" class="canva-text mt-4 max-w-3xl leading-7 text-[#c9c8d8]" style="color: rgb(201, 200, 216); font-weight: 400; font-style: normal; font-size: 16px;">FutureLens is designed to work in your browser. Your reading answers are used to create your fictional result and may be kept only for the current browser session so a refresh does not interrupt your experience. Do not enter sensitive personal information. We do not ask for passwords, banking information, government IDs, or exact addresses.</p>
+    </section>
+    <section id="terms" class="section py-8">
+     <h2 data-template-id="terms-title" class="canva-text display text-3xl font-semibold" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 24px;">Terms of Use</h2>
+     <p data-template-id="terms-copy" class="canva-text mt-4 max-w-3xl leading-7 text-[#c9c8d8]" style="color: rgb(201, 200, 216); font-weight: 400; font-style: normal; font-size: 16px;">FutureLens is for entertainment and inspiration only. Readings are fictional creative outputs and are not professional, financial, medical, legal, relationship, or life advice. Use your own judgment for every real-world decision.</p>
+    </section>
+   </main>
+   <footer class="border-t border-white/10 px-4 py-9">
+    <div class="mx-auto flex max-w-[1100px] flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+     <p data-template-id="disclaimer" class="canva-text max-w-xl text-xs leading-5 text-[#aaa8bd]" style="color: rgb(170, 168, 189); font-weight: 400; font-style: normal; font-size: 16px;">For entertainment purposes only. FutureLens creates fictional personalized readings and does not actually predict the future.</p>
+     <div class="flex gap-4">
+      <a data-template-id="footer-privacy" class="canva-link footer-link" href="#privacy" style="color: rgb(185, 183, 212); font-weight: 400; font-style: normal; font-size: 16px;">Privacy</a><a data-template-id="footer-terms" class="canva-link footer-link" href="#terms" style="color: rgb(185, 183, 212); font-weight: 400; font-style: normal; font-size: 16px;">Terms</a>
+     </div>
+    </div>
+   </footer>
+  </div>
+ 
+    const answers = { name:"", birth:"", situation:"", value:"", symbol:"", adventure:5 };
+    let currentStep = 1;
+    const $ = id => document.getElementById(id);
+
+    function hash(str) {
+      let h = 2166136261;
+      for (let i=0;i<str.length;i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); }
+      return Math.abs(h >>> 0);
+    }
+    function pick(arr, seed, salt=0) { return arr[(seed + salt) % arr.length]; }
+    function showView(id) {
+      document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+      $(id).classList.add("active");
+      document.getElementById("reading").scrollIntoView({behavior:"smooth",block:"start"});
+    }
+    function startReading() {
+      document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+      $("reading-view").classList.add("active");
+      document.getElementById("reading").scrollIntoView({behavior:"smooth",block:"start"});
+    }
+    $("start-reading").addEventListener("click", startReading);
+    $("start-reading-tiktok").addEventListener("click", startReading);
+    document.querySelectorAll("[data-group] button").forEach(btn => btn.addEventListener("click", () => {
+      const group = btn.parentElement.dataset.group;
+      btn.parentElement.querySelectorAll("button").forEach(b => b.classList.remove("selected"));
+      btn.classList.add("selected"); answers[group] = btn.dataset.value;
+    }));
+    document.querySelectorAll("[data-next]").forEach(btn => btn.addEventListener("click", () => {
+      if (currentStep === 1) answers.name = $("name-input").value.trim();
+      if (currentStep === 2) answers.birth = $("birth-input").value;
+      if (currentStep === 6) answers.adventure = $("adventure-input").value;
+      const required = [answers.name,answers.birth,answers.situation,answers.value,answers.symbol,answers.adventure];
+      if (!required[currentStep-1]) { btn.classList.add("ring-2","ring-[#ffcf89]"); setTimeout(()=>btn.classList.remove("ring-2","ring-[#ffcf89]"),600); return; }
+      if (currentStep < 6) {
+        document.querySelector(`.step[data-step="${currentStep}"]`).classList.remove("active");
+        currentStep++; document.querySelector(`.step[data-step="${currentStep}"]`).classList.add("active");
+        $("progress-bar").style.width = (currentStep/6*100)+"%";
+        $("progress-text").textContent = `Reading your future... ${currentStep}/6`;
+      } else beginReveal();
+    }));
+
+    function beginReveal() {
+      showView("reveal-view");
+      const stages = ["Analyzing your choices...","Looking deeper...","We found something interesting...","Your future reading is ready."];
+      let i=0; $("reveal-stage").textContent=stages[0];
+      const timer=setInterval(()=>{ i++; if(i<stages.length) $("reveal-stage").textContent=stages[i]; else { clearInterval(timer); $("reveal-button").classList.remove("hidden"); } },1100);
+    }
+    function generateResult(data) {
+      const seed=hash([data.name,data.birth,data.situation,data.value,data.symbol,data.adventure].join("|"));
+      const archetypes=["The Builder","The Explorer","The Creator","The Leader","The Dreamer","The Strategist","The Adventurer","The Independent"];
+      const money=["The Builder","The Risk Taker","The Slow Grower","The Unexpected Opportunity","The Independent Path"];
+      const love=["The Unexpected Connection","The Slow-Burning Story","The Second-Chance Chapter","The Adventure Partner"];
+      const career=["The Creator","The Leader","The Specialist","The Entrepreneur","The Explorer"];
+      const chapters=[
+        "A quiet shift is forming around an ordinary choice. The route that once felt expected begins to feel less interesting, and a small yes could make room for a more personal direction.",
+        "Your next chapter has the energy of rearranging the map rather than following it. A conversation, invitation, or overlooked skill may become the clue that changes your pace.",
+        "A new rhythm is taking shape. What appears small at first may be the beginning of a more confident way of choosing where your attention belongs."
+      ];
+      const turns=["A casual invitation arrives at exactly the moment you are ready to see it differently.","A tiny decision to try something once opens a surprising new connection.","An old idea returns with a detail that suddenly makes it feel possible."];
+      const colors=["midnight blue","soft gold","cosmic violet","sea-glass teal","rose quartz"];
+      const months=["January","March","May","July","September","November"];
+      const archetype=pick(archetypes,seed), moneyTitle=pick(money,seed,2), loveTitle=pick(love,seed,3), careerTitle=pick(career,seed,4);
+      return { seed, archetype, moneyTitle,loveTitle,careerTitle,
+        prediction:`${data.name}, your fictional reading suggests that ${pick(["a fresh perspective","a meaningful detour","an unexpected spark","a new sense of momentum"],seed,1)} may show up when you stop trying to force the obvious path.`,
+        chapter:pick(chapters,seed), turning:pick(turns,seed,6),
+        moneyText:`In this fictional lens, you carry ${moneyTitle} energy: progress comes from noticing what is already worth building, without treating any outcome as guaranteed.`,
+        loveText:`Your entertainment reading reflects ${loveTitle} energy—less about chasing certainty, more about allowing honest curiosity and warm communication to lead.`,
+        careerText:`The ${careerTitle} theme appears around your work story: a chance to use your viewpoint in a way that feels more original, useful, or self-directed.`,
+        signal:`For entertainment: lucky number ${seed%89+11} · lucky symbol ${data.symbol} · lucky color ${pick(colors,seed,7)} · lucky month ${pick(months,seed,8)}.`
+      };
+    }
+    function renderResult(result) {
+      $("result-name").textContent=answers.name;
+      $("result-archetype").textContent=result.archetype;
+      $("result-prediction").textContent=result.prediction;
+      $("result-lucky-symbol").textContent=answers.symbol;
+      $("chapter-text").textContent=result.chapter;
+      $("money-title").textContent=result.moneyTitle; $("money-text").textContent=result.moneyText;
+      $("love-title").textContent=result.loveTitle; $("love-text").textContent=result.loveText;
+      $("career-title").textContent=result.careerTitle; $("career-text").textContent=result.careerText;
+      $("turning-text").textContent=result.turning; $("signal-text").textContent=result.signal;
+    }
+    $("reveal-button").addEventListener("click",()=>{
+      const result=generateResult(answers);
+      sessionStorage.setItem("futurelens-reading",JSON.stringify({answers,result}));
+      renderResult(result); showView("result-view");
+    });
+    function formattedText() {
+      return `FutureLens — Fictional entertainment reading\n${$("result-name").textContent}: ${$("result-archetype").textContent}\n${$("result-prediction").textContent}\n${$("signal-text").textContent}\n\nYour future isn’t written yet.`;
+    }
+    async function copyText(text, status="Copied to your clipboard.") {
+      try { await navigator.clipboard.writeText(text); $("copy-status").textContent=status; } catch { $("copy-status").textContent="Select and copy your reading from the page."; }
+    }
+    $("copy-result").addEventListener("click",()=>copyText(formattedText()));
+    $("share-result").addEventListener("click",async()=>{
+      const text=formattedText();
+      if(navigator.share) { try { await navigator.share({title:"My FutureLens reading",text}); $("copy-status").textContent="Your share sheet is ready."; } catch {} }
+      else copyText(text,"Sharing is unavailable here, so your reading was copied.");
+    });
+
+    $("friend-start").addEventListener("click",()=>{$("friend-form").classList.remove("hidden"); $("friend-name").focus();});
+    $("friend-form").addEventListener("submit",e=>{
+      e.preventDefault(); const name=$("friend-name").value.trim(), vibe=$("friend-vibe").value;
+      if(!name) return;
+      const s=hash(name+"|"+vibe), lines=["Their next fictional chapter begins with a pleasantly unexpected invitation.","A small creative choice may become their favorite new ritual.","Their FutureLens story points toward a bold idea that deserves a first try.","A new conversation could help them notice an opportunity already nearby."];
+      $("friend-output").textContent=`${name}'s fictional ${vibe.toLowerCase()} reading: ${pick(lines,s)} Their lucky signal is ${pick(["🌙","⭐","🪐","🌹"],s,3)}.`;
+      $("friend-result").classList.remove("hidden");
+    });
+    $("friend-copy").addEventListener("click",()=>copyText($("friend-output").textContent,"Friend reading copied."));
+    $("friend-share").addEventListener("click",async()=>{ const text=$("friend-output").textContent; if(navigator.share) { try { await navigator.share({title:"A FutureLens friend reading",text}); } catch {} } else copyText(text,"Friend reading copied."); });
+
+    const dailyMessages=["Today’s fictional signal: make room for the question you have been postponing. A curious answer may be more useful than a perfect plan.","Today’s fictional signal: a gentle reset can change the texture of your week. Choose one thing to make simpler.","Today’s fictional signal: notice what feels energizing without needing to explain it. That detail may be worth following.","Today’s fictional signal: an unfinished idea may deserve ten quiet minutes of your attention today."];
+    $("daily-message").textContent=dailyMessages[hash(new Date().toISOString().slice(0,10))%dailyMessages.length];
+    $("find-archetype").addEventListener("click",startReading);
+    const saved=sessionStorage.getItem("futurelens-reading");
+    if(saved) { try { const x=JSON.parse(saved); Object.assign(answers,x.answers); renderResult(x.result); } catch {} }
+    lucide.createIcons();
+  </script>
+ <script src="script.js"></script>
+</body></html>
